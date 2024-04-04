@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matrículas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Matrícula de Curso</h1>
+        <hr>
+
+        <!-- Paso 1: Selección del curso -->
+        <div id="paso1">
+            <h3>Paso 1: Seleccione un curso</h3>
+            <form id="formPaso1">
+                <div class="form-group">
+                    <label for="curso">Curso:</label>
+                    <select class="form-control" id="curso" name="curso">
+                        <option value="Java">Java</option>
+                        <option value="PHP">PHP</option>
+                        <option value=".NET">.NET</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" id="siguientePaso1">Siguiente</button>
+            </form>
+        </div>
+
+        <!-- Paso 2: Selección de módulos -->
+        <div id="paso2" style="display:none;">
+            <h3>Paso 2: Seleccione los módulos</h3>
+            <form id="formPaso2">
+                <div class="form-group">
+                    <label>Módulos:</label><br>
+                    <input type="checkbox" id="basico" name="modulos" value="Básico"> Básico<br>
+                    <input type="checkbox" id="intermedio" name="modulos" value="Intermedio"> Intermedio<br>
+                    <input type="checkbox" id="avanzado" name="modulos" value="Avanzado"> Avanzado<br>
+                </div>
+                <button type="button" class="btn btn-primary" id="siguientePaso2">Siguiente</button>
+            </form>
+        </div>
+
+        <!-- Paso 3: Selección del medio de pago -->
+        <div id="paso3" style="display:none;">
+            <h3>Paso 3: Seleccione el medio de pago</h3>
+            <form id="formPaso3">
+                <div class="form-group">
+                    <label>Medio de Pago:</label><br>
+                    <input type="radio" id="tarjeta" name="medioPago" value="Tarjeta de crédito"> Tarjeta de crédito<br>
+                    <input type="radio" id="efectivo" name="medioPago" value="Pago en efectivo"> Pago en efectivo<br>
+                </div>
+                <button type="button" class="btn btn-primary" id="confirmar">Confirmar Matrícula</button>
+            </form>
+        </div>
+
+        <!-- Detalles y total -->
+        <div id="detalles" style="display:none;">
+            <h3>Detalle de Matrícula</h3>
+            <p id="detalleCurso"></p>
+            <p id="detalleModulos"></p>
+            <p id="detallePago"></p>
+            <p id="totalPagar"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>
