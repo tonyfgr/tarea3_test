@@ -2,16 +2,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
-// Configuración de EJS como motor de plantillas
 app.set('view engine', 'ejs');
 
-// Middleware para procesar datos del cuerpo de las solicitudes HTTP
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Directorio de archivos estáticos
 app.use(express.static(__dirname + '/public'));
 
-// Ruta de inicio de sesión
 app.get('/', (req, res) => {
     res.render('login');
 });
@@ -21,9 +17,7 @@ app.post('/matriculas', (req, res) => {
     const usuario = req.body.usuario;
     const contrasena = req.body.contrasena;
 
-    // Lógica para verificar el inicio de sesión y redireccionar a la vista de matriculas
-    // Aquí puedes implementar la lógica de autenticación con la base de datos o cualquier otro método
-    // Si la autenticación es exitosa, redirecciona a la vista de matriculas
+
     if (usuario === 'usuario' && contrasena === 'contrasena') {
         res.render('matriculas');
     } else {

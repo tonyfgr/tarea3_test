@@ -1,49 +1,62 @@
 $(document).ready(function() {
-    // Variables para almacenar la selección del usuario
-    var cursoSeleccionado = '';
-    var modulosSeleccionados = [];
+    var cursosSeleccionados = [];
     var medioPagoSeleccionado = '';
 
-    // Evento para el botón "Siguiente" del Paso 1
     $('#siguientePaso1').click(function(e) {
         e.preventDefault();
-        cursoSeleccionado = $('#curso').val();
+        var curso = $('#curso').val();
+        cursosSeleccionados.push(curso);
         $('#paso1').hide();
         $('#paso2').show();
     });
 
-    // Evento para el botón "Siguiente" del Paso 2
     $('#siguientePaso2').click(function(e) {
         e.preventDefault();
-        $('input[name="modulos"]:checked').each(function() {
-            modulosSeleccionados.push($(this).val());
-        });
         $('#paso2').hide();
         $('#paso3').show();
     });
 
-    // Evento para el botón "Confirmar Matrícula" del Paso 3
     $('#confirmar').click(function(e) {
         e.preventDefault();
         medioPagoSeleccionado = $('input[name="medioPago"]:checked').val();
         mostrarDetalleMatricula();
     });
 
-    // Función para mostrar el detalle de la matrícula
     function mostrarDetalleMatricula() {
-        var precioCurso = obtenerPrecioCurso();
-        var total = calcularTotal(precioCurso);
-        $('#detalleCurso').text('Curso: ' + cursoSeleccionado);
-        $('#detalleModulos').text('Módulos: ' + modulosSeleccionados.join(', '));
+        var total = calcularTotal();
+        $('#detalleCurso').text('Curso(s): ' + cursosSeleccionados.join(', '));
+        $('#detalleModulos').text('Módulos: ' + obtenerModulosSeleccionados().join(', '));
         $('#detallePago').text('Medio de Pago: ' + medioPagoSeleccionado);
         $('#totalPagar').text('Total a Pagar: S/ ' + total.toFixed(2));
         $('#paso3').hide();
         $('#detalles').show();
     }
 
+    function obtenerModulosSeleccionados() {
+        var modulos = [];
+        $('input[name="modulos"]:checked').each(function() {
+            modulos.push($(this).val());
+        });
+        return modulos;
+    }
+
+    function calcularTotal() {
+        var total = 0;
+        cursosSeleccionados.forEach(function(curso) {
+            var precioCurso = obtenerPrecioCurso(curso);
+            var modulosSeleccionados = obtenerModulosSeleccionados().length;
+            var totalCurso = precioCurso * modulosSeleccionados;
+            if (medioPagoSeleccionado === 'Pago en efectivo') {
+                totalCurso *= 0.9; // Aplicar descuento del 10% si el pago es en efectivo
+            }
+            total += totalCurso;
+        });
+        return total;
+    }
+
     // Función para obtener el precio del curso seleccionado
-    function obtenerPrecioCurso() {
-        switch (cursoSeleccionado) {
+    function obtenerPrecioCurso(curso) {
+        switch (curso) {
             case 'Java':
                 return 1200;
             case 'PHP':
@@ -53,14 +66,5 @@ $(document).ready(function() {
             default:
                 return 0;
         }
-    }
-
-    // Función para calcular el total a pagar
-    function calcularTotal(precioCurso) {
-        var total = precioCurso;
-        if (medioPagoSeleccionado === 'Pago en efectivo') {
-            total *= 0.9; // Aplicar descuento del 10% si el pago es en efectivo
-        }
-        return total;
     }
 });

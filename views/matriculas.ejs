@@ -1,18 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matrículas</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <h1 class="text-center">Matrícula de Curso</h1>
         <hr>
 
         <!-- Paso 1: Selección del curso -->
         <div id="paso1">
-            <h3>Paso 1: Seleccione un curso</h3>
+            <h3 class="mb-4">Paso 1: Seleccione un curso</h3>
             <form id="formPaso1">
                 <div class="form-group">
                     <label for="curso">Curso:</label>
@@ -22,45 +41,85 @@
                         <option value=".NET">.NET</option>
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary" id="siguientePaso1">Siguiente</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="siguientePaso1">Siguiente</button>
             </form>
         </div>
 
         <!-- Paso 2: Selección de módulos -->
         <div id="paso2" style="display:none;">
-            <h3>Paso 2: Seleccione los módulos</h3>
+            <h3 class="mb-4">Paso 2: Seleccione los módulos</h3>
             <form id="formPaso2">
                 <div class="form-group">
-                    <label>Módulos:</label><br>
-                    <input type="checkbox" id="basico" name="modulos" value="Básico"> Básico<br>
-                    <input type="checkbox" id="intermedio" name="modulos" value="Intermedio"> Intermedio<br>
-                    <input type="checkbox" id="avanzado" name="modulos" value="Avanzado"> Avanzado<br>
+                    <label class="mr-3">Módulos:</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="basico" name="modulos" value="Básico">
+                        <label class="form-check-label" for="basico">Básico</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="intermedio" name="modulos" value="Intermedio">
+                        <label class="form-check-label" for="intermedio">Intermedio</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="avanzado" name="modulos" value="Avanzado">
+                        <label class="form-check-label" for="avanzado">Avanzado</label>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary" id="siguientePaso2">Siguiente</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="siguientePaso2">Siguiente</button>
             </form>
         </div>
 
         <!-- Paso 3: Selección del medio de pago -->
         <div id="paso3" style="display:none;">
-            <h3>Paso 3: Seleccione el medio de pago</h3>
+            <h3 class="mb-4">Paso 3: Seleccione el medio de pago</h3>
             <form id="formPaso3">
                 <div class="form-group">
-                    <label>Medio de Pago:</label><br>
-                    <input type="radio" id="tarjeta" name="medioPago" value="Tarjeta de crédito"> Tarjeta de crédito<br>
-                    <input type="radio" id="efectivo" name="medioPago" value="Pago en efectivo"> Pago en efectivo<br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="tarjeta" name="medioPago" value="Tarjeta de crédito">
+                        <label class="form-check-label" for="tarjeta">Tarjeta de crédito</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="efectivo" name="medioPago" value="Pago en efectivo">
+                        <label class="form-check-label" for="efectivo">Pago en efectivo</label>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary" id="confirmar">Confirmar Matrícula</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="confirmar">Confirmar Matrícula</button>
             </form>
         </div>
 
         <!-- Detalles y total -->
         <div id="detalles" style="display:none;">
-            <h3>Detalle de Matrícula</h3>
-            <p id="detalleCurso"></p>
-            <p id="detalleModulos"></p>
-            <p id="detallePago"></p>
-            <p id="totalPagar"></p>
+            <h3 class="mb-4">CONFIRMACION DE MATRICULA</h3>
+            <h3>Datos de confirmación:</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Curso seleccionado:</h5>
+                    <p class="card-text" id="detalleCurso"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Módulos:</h5>
+                    <p class="card-text" id="detalleModulos"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Medio de Pago seleccionado:</h5>
+                    <p class="card-text" id="detallePago"></p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total a Pagar:</h5>
+                    <p class="card-text" id="totalPagar"></p>
+                </div>
+            </div>
+            <div>
+                
+        <p>¡Su matrícula ha sido confirmada! Los siguientes son los detalles de su matrícula:</p>
+            </div>
         </div>
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
